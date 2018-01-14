@@ -9,10 +9,12 @@ BEGIN
   FROM DetailIsCharacter INNER JOIN Characters
   ON DetailIsCharacter.character_id = Characters.id
   WHERE detail_id = new.detail_id;
+
   SELECT theme_id
   INTO product_theme
-  FROM Products
-  WHERE id = new.product_id;
+  FROM ProductHasTheme
+  WHERE ProductHasTheme.product_id = new.product_id;
+
   IF product_theme <> character_theme AND character_theme IS NOT NULL
   THEN
     RAISE EXCEPTION 'different themes';

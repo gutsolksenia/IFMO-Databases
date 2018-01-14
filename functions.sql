@@ -18,8 +18,6 @@ CREATE OR REPLACE FUNCTION products_with_character(INT)
   RETURNS TABLE(
     id          INTEGER,
     name        VARCHAR,
-    theme_id    INTEGER,
-    category_id INTEGER,
     min_age     INTEGER,
     max_age     INTEGER,
     edition     INTEGER,
@@ -32,8 +30,6 @@ BEGIN
   RETURN QUERY SELECT 
     Products.id,
     Products.name,
-    Products.theme_id,
-    Products.category_id,
     Products.min_age,
     Products.max_age,
     Products.edition,

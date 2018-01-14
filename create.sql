@@ -33,8 +33,6 @@ CREATE TABLE Categories (
 CREATE TABLE Products (
     id          SERIAL       NOT NULL PRIMARY KEY,
     name        VARCHAR(200) NOT NULL UNIQUE,
-    theme_id    INTEGER      REFERENCES Themes (id) ON DELETE SET NULL,
-    category_id INTEGER      REFERENCES Categories (id) ON DELETE SET NULL,
     min_age     INTEGER      NOT NULL,
     max_age     INTEGER,
     edition     INTEGER      NOT NULL,
@@ -51,7 +49,7 @@ CREATE TABLE Catalogs (
 CREATE TABLE Characters (
     id          SERIAL       NOT NULL PRIMARY KEY,
     name        VARCHAR(200) NOT NULL UNIQUE,
-    theme_id    INTEGER      REFERENCES Themes (id) ON DELETE CASCADE
+    theme_id    INTEGER      NOT NULL REFERENCES Themes (id) ON DELETE CASCADE
 );
 
 CREATE TABLE ProductContainsDetail (
@@ -70,4 +68,14 @@ CREATE TABLE CatalogContainsProduct (
 CREATE TABLE DetailIsCharacter (
 	detail_id     INTEGER      NOT NULL PRIMARY KEY REFERENCES Products (id) ON DELETE CASCADE,
 	character_id  INTEGER      NOT NULL REFERENCES Characters (id) ON DELETE CASCADE
+);
+
+CREATE TABLE ProductHasTheme(
+    product_id  INTEGER      NOT NULL PRIMARY KEY REFERENCES Products (id) ON DELETE CASCADE,
+    theme_id    INTEGER      REFERENCES Themes (id) ON DELETE SET NULL
+);
+
+CREATE TABLE ProductHasCategory(
+    product_id     INTEGER      NOT NULL PRIMARY KEY REFERENCES Products (id) ON DELETE CASCADE,
+    category_id    INTEGER      REFERENCES Categories (id) ON DELETE CASCADE
 );

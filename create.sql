@@ -71,5 +71,3 @@ CREATE TABLE DetailIsCharacter (
 	detail_id     INTEGER      NOT NULL PRIMARY KEY REFERENCES Products (id) ON DELETE CASCADE,
 	character_id  INTEGER      NOT NULL REFERENCES Characters (id) ON DELETE CASCADE
 );
-
-\i /home/mikhail/ksenia/databases/triggers.sql;

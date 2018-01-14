@@ -25,3 +25,5 @@ INSERT INTO Details (id, name,  style_id, shape_id) VALUES (1, 'ya', 2, 0);
 INSERT INTO DetailIsCharacter (detail_id, character_id) VALUES (0, 0);
 
 INSERT INTO ProductContainsDetail (product_id, detail_id, amount) VALUES (3, 1, 100);
+
+INSERT INTO ProductContainsDetail (product_id, detail_id, amount) VALUES (3, 0, 10);

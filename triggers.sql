@@ -1,11 +1,13 @@
 CREATE OR REPLACE FUNCTION fun_check_theme()
   RETURNS TRIGGER AS $$
-DECLARE character_theme INTEGER;
-DECLARE product_theme INTEGER;
+DECLARE
+  character_theme INTEGER;
+  product_theme INTEGER;
 BEGIN
   SELECT theme_id
   INTO character_theme
-  FROM DetailIsCharacter NATURAL JOIN Characters
+  FROM DetailIsCharacter INNER JOIN Characters
+  ON DetailIsCharacter.character_id = Characters.id
   WHERE detail_id = new.detail_id;
   SELECT theme_id
   INTO product_theme
@@ -42,4 +44,3 @@ CREATE TRIGGER check_age_interval
 BEFORE INSERT OR UPDATE ON Products
 FOR EACH ROW EXECUTE PROCEDURE fun_check_age_interval();
 
-\i /home/mikhail/ksenia/databases/init.sql;

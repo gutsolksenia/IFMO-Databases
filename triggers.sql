@@ -6,15 +6,14 @@ DECLARE
 BEGIN
   SELECT theme_id
   INTO character_theme
-  FROM DetailIsCharacter INNER JOIN Characters
-  ON DetailIsCharacter.character_id = Characters.id
+  FROM DetailIsCharacter NATURAL JOIN Characters
   WHERE detail_id = new.detail_id;
 
   SELECT theme_id
   INTO product_theme
-  FROM ProductHasTheme
-  WHERE ProductHasTheme.product_id = new.product_id;
-
+  FROM Products
+  WHERE Products.id = new.product_id;
+  
   IF product_theme <> character_theme AND character_theme IS NOT NULL
   THEN
     RAISE EXCEPTION 'different themes';
@@ -45,4 +44,3 @@ ON Products;
 CREATE TRIGGER check_age_interval
 BEFORE INSERT OR UPDATE ON Products
 FOR EACH ROW EXECUTE PROCEDURE fun_check_age_interval();
-

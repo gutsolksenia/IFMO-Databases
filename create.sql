@@ -35,15 +35,14 @@ CREATE TABLE Products (
     name        VARCHAR(200) NOT NULL UNIQUE,
     min_age     INTEGER      NOT NULL,
     max_age     INTEGER,
-    edition     INTEGER      NOT NULL,
-    date        DATE
+    year        INTEGER      NOT NULL,
+    theme_id    INTEGER      NOT NULL REFERENCES Themes (id) ON DELETE RESTRICT
 );
 
 CREATE TABLE Catalogs (
     id          SERIAL       NOT NULL PRIMARY KEY,
     name        VARCHAR(200) NOT NULL UNIQUE,
-    edition     INTEGER      NOT NULL,
-    date        DATE
+    year        INTEGER      NOT NULL
 );
 
 CREATE TABLE Characters (
@@ -68,11 +67,6 @@ CREATE TABLE CatalogContainsProduct (
 CREATE TABLE DetailIsCharacter (
 	detail_id     INTEGER      NOT NULL PRIMARY KEY REFERENCES Products (id) ON DELETE CASCADE,
 	character_id  INTEGER      NOT NULL REFERENCES Characters (id) ON DELETE CASCADE
-);
-
-CREATE TABLE ProductHasTheme(
-    product_id  INTEGER      NOT NULL PRIMARY KEY REFERENCES Products (id) ON DELETE CASCADE,
-    theme_id    INTEGER      REFERENCES Themes (id) ON DELETE SET NULL
 );
 
 CREATE TABLE ProductHasCategory(

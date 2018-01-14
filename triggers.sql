@@ -6,17 +6,18 @@ DECLARE
 BEGIN
   SELECT theme_id
   INTO character_theme
-  FROM DetailIsCharacter NATURAL JOIN Characters
+  FROM DetailIsCharacter INNER JOIN Characters
+  ON DetailIsCharacter.character_id = Characters.id
   WHERE detail_id = new.detail_id;
 
   SELECT theme_id
   INTO product_theme
   FROM Products
   WHERE Products.id = new.product_id;
-  
+
   IF product_theme <> character_theme AND character_theme IS NOT NULL
   THEN
-    RAISE EXCEPTION 'different themes';
+    RAISE EXCEPTION 'Different themes: character_theme_id=% product_theme_id=%', character_theme, product_theme;
   END IF;
   RETURN new;
 END;

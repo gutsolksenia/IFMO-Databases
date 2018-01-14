@@ -52,7 +52,7 @@ DECLARE
   year         ALIAS FOR $5;
   theme_id     INTEGER;
 BEGIN
-   SELECT theme_id
+   SELECT id
    INTO theme_id
    FROM Themes
    WHERE Themes.name = theme_name;
